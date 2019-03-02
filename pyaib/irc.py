@@ -145,7 +145,7 @@ class Client(object):
                 msg = Message(irc_c, raw)
                 if msg:  # This is a valid message
                     #So we can do length calculations for PRIVMSG WRAPS
-                    if (msg.nick == irc_c.botnick
+                    if (msg.nick.lower() == irc_c.botnick.lower()
                             and irc_c.botsender != msg.sender):
                         irc_c.botsender = msg.sender
                     #Event for kind of message [if exists]
@@ -351,7 +351,7 @@ class Message (object):
         msg.message = match.group(2)
 
         #If the target is not the bot its a channel message
-        if msg.target != irc_c.botnick:
+        if msg.target.lower() != irc_c.botnick.lower():
             msg.reply_target = msg.target
             #Strip off any message prefixes
             msg.raw_channel = msg.target.lstrip('@%+')
