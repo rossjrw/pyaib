@@ -145,8 +145,9 @@ class Client(object):
                 msg = Message(irc_c, raw)
                 if msg:  # This is a valid message
                     #So we can do length calculations for PRIVMSG WRAPS
-                    if (msg.nick.lower() == irc_c.botnick.lower()
-                            and irc_c.botsender != msg.sender):
+                    if msg.nick != None and irc_c.botnick != None \
+                    and msg.nick == irc_c.botnick \
+                    and irc_c.botsender != msg.sender:
                         irc_c.botsender = msg.sender
                     #Event for kind of message [if exists]
                     eventKey = 'IRC_MSG_%s' % msg.kind
